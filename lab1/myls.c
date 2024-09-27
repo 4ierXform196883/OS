@@ -174,12 +174,13 @@ int process_entries(
             sprintf(new_array[i].name, "%s%s%s", MYLS_GREEN, old_array[i]->d_name, MYLS_DEFAULT);
         }
         else if (S_ISLNK(file_data.st_mode)) {
-            if (stat(path, &file_data) == -1) {
-                fprintf(stderr, "\nUnexpected error: Cannot read '%s': \n", path);
-                continue;
-            }
             char link[MYLS_MAX_PATH_LENGTH];
             readlink(path, link, MYLS_MAX_PATH_LENGTH - 1);
+            if (stat(path, &file_data) == -1) {
+                fprintf(stderr, "\nUnexpected error: Cannot read '%s': \n", path);
+                sprintf(new_array[i].name, "%s%s%s -> %s", MYLS_CYAN, old_array[i]->d_name, MYLS_DEFAULT, link);
+                continue;
+            }
 
             char link_modified[MYLS_MAX_PATH_LENGTH + MYLS_MAX_MODS_LENGTH];
             if (S_ISDIR(file_data.st_mode)) {
