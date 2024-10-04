@@ -39,7 +39,7 @@ void print_file(FILE *file) {
         }
         is_empty = (line[0] == '\n');
 
-        if (got_n && !is_empty) {
+        if (got_n && (!got_b || !is_empty)) {
             printf("%6d\t", line_number++);
         }
         else if (got_b && !is_empty) {
