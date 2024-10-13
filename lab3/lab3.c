@@ -90,7 +90,16 @@ int main(int argc, char** argv) {
         printf("[PARENT1] my pid: %d; my child's pid: %d; my parent's pid: %d\n", getpid(), pid, getppid());
         int status;
         pid = wait(&status);
-        printf("[PARENT1] has waited for termination of process %d, which exited with status %d\n", pid, status);
+        printf("[PARENT1] has waited for termination of process %d, which ", pid);
+        if (WIFEXITED(status)) {
+            printf("exited normally with status %d\n", WEXITSTATUS(status));
+        }
+        else if (WIFSIGNALED(status)) {
+            printf("was terminated with status %d by the signal %d\n", WEXITSTATUS(status), WTERMSIG(status));
+        }
+        else if (WIFSTOPPED(status)) {
+            printf("was stopped by the signal %d\n", WSTOPSIG(status));
+        }
     }
     return 0;
 }
