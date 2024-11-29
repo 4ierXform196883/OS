@@ -52,7 +52,7 @@ void search_in_file(FILE *file, regex_t *regex)
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        fprintf(stderr, "\nUsage: %s pattern [FILE]...\n", argv[0]);
+        fprintf(stderr, "\nUsage: %s [PATTERN] [FILE]...\n", argv[0]);
         return 1;
     }
 
