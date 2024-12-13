@@ -28,7 +28,7 @@ void* writer_thread(void* arg) {
 
 void* reader_thread(void* arg) {
     while (true) {
-        pthread_rwlock_rdlock(&rwlock); // не запрещает другим читать
+        pthread_rwlock_rdlock(&rwlock);
         printf("[READER %li]: %s\n", pthread_self(), shared_array);
 
         if (writer_finished) {
@@ -75,5 +75,7 @@ int main() {
         }
     }
 
+    pthread_rwlock_destroy(&rwlock);
+    
     return 0;
 }
