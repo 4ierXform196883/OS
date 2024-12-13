@@ -75,7 +75,5 @@ int main() {
         }
     }
 
-    pthread_rwlock_destroy(&rwlock);
-    
     return 0;
 }
